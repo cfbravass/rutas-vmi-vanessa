@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/rutas-vmi-vanessa/static/css/main.091f5cd7.css",
-    "main.js": "/rutas-vmi-vanessa/static/js/main.e9ee65fb.js",
+    "main.js": "/rutas-vmi-vanessa/static/js/main.ce63ed5b.js",
     "index.html": "/rutas-vmi-vanessa/index.html",
     "main.091f5cd7.css.map": "/rutas-vmi-vanessa/static/css/main.091f5cd7.css.map",
-    "main.e9ee65fb.js.map": "/rutas-vmi-vanessa/static/js/main.e9ee65fb.js.map"
+    "main.ce63ed5b.js.map": "/rutas-vmi-vanessa/static/js/main.ce63ed5b.js.map"
   },
   "entrypoints": [
     "static/css/main.091f5cd7.css",
-    "static/js/main.e9ee65fb.js"
+    "static/js/main.ce63ed5b.js"
   ]
 }
