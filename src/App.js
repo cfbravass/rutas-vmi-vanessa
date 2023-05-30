@@ -1,7 +1,12 @@
 import AuthContextProvider from './contexts/authContext'
 import NotifyContextProvider from './contexts/notifyContext'
 
-import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute'
 
@@ -15,10 +20,7 @@ function App() {
       <AuthContextProvider>
         <Router>
           <Switch>
-            <PrivateRoute exact path='/' component={Index} />
-            <PrivateRoute exact path='/ingresar' component={Login} />
-            <PrivateRoute exact path='/ubicacion' component={UbicacionActual} />
-            <Redirect to='/a' />
+            <Route path='/' component={UbicacionActual} />
           </Switch>
         </Router>
       </AuthContextProvider>
