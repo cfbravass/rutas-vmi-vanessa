@@ -1,25 +1,26 @@
 import { useAuth } from '../contexts/authContext'
 import { useLocation, Redirect, Route } from 'react-router-dom'
 
-function PrivateRoute(props) {
-  const { currentUser } = useAuth()
+const PrivateRoute = (props) => {
+  const { isAuthenticated } = useAuth()
   const { path } = props
   const location = useLocation()
 
-  if (path === '/ingresar') {
-    return currentUser ? (
+  if (path === '/acceso') {
+    return isAuthenticated() ? (
       <Redirect to={location.state?.from ?? '/'} />
     ) : (
       <Route {...props} />
     )
   }
-  return currentUser ? (
+
+  return isAuthenticated() ? (
     <Route {...props} />
   ) : (
     <Redirect
       to={{
-        pathname: '/ingresar',
-        state: { from: path },
+        pathname: '/acceso',
+        state: { from: location.pathname },
       }}
     />
   )

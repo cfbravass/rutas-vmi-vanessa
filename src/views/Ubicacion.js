@@ -1,20 +1,26 @@
-import React, { useState } from 'react'
-import { doc, setDoc, serverTimestamp, GeoPoint } from 'firebase/firestore'
+import React, { useEffect, useState } from 'react'
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  GeoPoint,
+} from 'firebase/firestore'
 import { db } from '../firebaseApp'
 import Mapa from '../components/Mapa'
+import { useAuth } from '../contexts/authContext'
 
 function UbicacionActual() {
   const [latitude, setLatitude] = useState(0)
   const [longitude, setLongitude] = useState(0)
+  const { currentUser } = useAuth()
 
   const handleGuardarUbicacion = () => {
-    const rutaId = 'rutaId' // ID de la ruta a la que se va a asignar la ubicación
     const ubicacionData = {
       ubicacion: new GeoPoint(latitude, longitude),
       timestamp: serverTimestamp(),
     }
 
-    setDoc(doc(db, 'rutas', rutaId), ubicacionData)
+    addDoc(collection(db, 'rutas'), ubicacionData)
       .then(() => {
         console.log('Ubicación guardada exitosamente')
       })
@@ -39,19 +45,28 @@ function UbicacionActual() {
     }
   }
 
+  useEffect(() => {
+    handleObtenerUbicacionActual()
+  }, [])
+
   return (
     <div>
-      <h2>Ubicación Actual</h2>
+      <h2>Ubicación Actual del Usuario {currentUser.uid}</h2>
       <p>Latitud: {latitude}</p>
       <p>Longitud: {longitude}</p>
-      {latitude && longitude && (
-        <Mapa latitude={latitude} longitude={longitude} />
-      )}
+      <Mapa latitude={latitude} longitude={longitude} />
       <button onClick={handleObtenerUbicacionActual}>
         Obtener Ubicación Actual
       </button>
       <button onClick={handleGuardarUbicacion}>Guardar Ubicación</button>
-      <button onClick={(e) => setLatitude(latitude + 1)}>+</button>
+      <button
+        onClick={() => {
+          setLatitude(prompt('Latitud:'))
+          setLongitude(prompt('Longitud:'))
+        }}
+      >
+        Cambiar Ubicación
+      </button>
     </div>
   )
 }
